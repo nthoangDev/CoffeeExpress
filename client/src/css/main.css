@@ -1,0 +1,35 @@
+:root {
+    --color-primary: #7FA1C3;
+    --color-danger: #C80036;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-grey: #5c5c5e;
+    --color-grey-light: #dcdcdc;
+}
+
+.logo img {
+    max-width: 200px;
+}
+
+.rounded-md {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary);
+    opacity: 0.9;
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+.shadow-md {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
