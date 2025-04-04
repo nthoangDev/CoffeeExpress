@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="./src/css/auth.css">
+    <link rel="stylesheet" href="./src/css/main.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center auth-container">
+            <div class="col-md-6 shadow-md p-4 rounded-md">
+                <a class="logo-container btn-primary" href="index.html">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                    <img src="./src/img/logo.png" alt="MindX Coffee Logo" class="logo-img">
+                </a>
+                <h5>Đăng nhập</h5>
+                <form id="login-form">
+                    <div class="mb-3 form-group">
+                        <div class="input-wrapper">
+                            <span class="icon"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control inp-email" id="email" placeholder="Nhập email">
+                        </div>
+                    </div>  
+                    <div class="mb-3 form-group">
+                        <div class="input-wrapper">
+                            <span class="icon"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control inp-pwd" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                    </div>  
+                    <button type="submit" class="btn btn-primary btn-auth">Đăng nhập</button>
+                    <p class="login-link mt-3 text-center">Đã chưa có tài khoản? <a href="./register.html">Đăng ký</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./src/js/login.js"></script>
+</body>
+
+</html>
