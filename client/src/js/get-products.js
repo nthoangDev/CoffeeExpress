@@ -12,13 +12,13 @@ async function getProductList(container, limitCount) {
             const productId = doc.id;
             const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
             htmls += `
-                <div class="product-item col-md-3 col-6">
-                    <div class="content">
+                 <div class="product-item col-md-3 col-6">
+                    <div class="content p-2">
                         <img src="${product.imageUrl}" alt="${product.name}" class="img-fluid rounded">
                         <div class="text p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">${product.name}</h6>
-                                <h6 class="mb-0">${formattedPrice}</h6>
+                            <div class="d-flex justify-content-between flex-column align-items-center">
+                                <h5 class="mb-2 text-uppercase">${product.name}</h5>
+                                <p class="mb-3">Giá: <span class="fs-6 fw-semibold text-danger">${formattedPrice}</span></p>
                             </div>
                             <button class="btn btn-primary btn-order mt-2 w-100" data-id="${productId}">Đặt hàng</button>
                         </div>
@@ -54,7 +54,7 @@ async function showOrderForm(productId) {
             const product = docSnap.data();
             const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
             orderForm.innerHTML = `
-                <div class="content p-3 bg-light rounded shadow">
+                 <div class="content p-3 bg-light rounded shadow">
                     <button class="btn btn-outline-dark btn-cancel mb-3">Đóng</button>
                     <div class="row">
                         <div class="col-md-4 col-12 mb-3">
@@ -68,7 +68,8 @@ async function showOrderForm(productId) {
                                     <label for="quantity" class="form-label">Số lượng</label>
                                     <input type="number" class="form-control" id="quantity" value="1" min="1" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-confirm-order w-100" data-price="${product.price}">Xác nhận</button>
+                                <button type="submit" class="btn btn-primary btn-confirm-order w-100"
+                                    data-price="${product.price}">Xác nhận</button>
                             </form>
                         </div>
                     </div>
@@ -95,53 +96,6 @@ async function showOrderForm(productId) {
         }
     } catch (error) {
         console.error("Lỗi khi lấy thông tin sản phẩm: ", error);
-    }
-}
-
-// Xử lý đơn hàng
-async function handleOrder(productId, quantity, productPrice) {
-    if (!userSession) {
-        alert("Vui lòng đăng nhập để đặt hàng!");
-        return;
-    }
-
-    let authorEmail = userSession.user.email;
-    try {
-        const q = query(collection(db, 'users'), where('email', '==', authorEmail));
-        const querySnapshot = await getDocs(q);
-        if (querySnapshot.empty) {
-            console.log("Không tìm thấy người dùng!");
-            return;
-        }
-
-        for (const doc of querySnapshot.docs) {
-            let author = doc.data();
-            const totalCost = productPrice * quantity;
-
-            if (author.balance < totalCost) {
-                alert("Số dư ví không đủ!");
-                return;
-            }
-
-            const productDoc = await getDoc(doc(db, 'products', productId));
-            const orderData = {
-                author: authorEmail,
-                product: productDoc.data(),
-                quantity: parseInt(quantity),
-                status: 0,
-                createdAt: new Date()
-            };
-
-            await addDoc(collection(db, 'orders'), orderData);
-            await updateDoc(doc.ref, {
-                balance: author.balance - totalCost
-            });
-
-            alert("Đặt hàng thành công!");
-            document.querySelector(".order-form").style.display = 'none';
-        }
-    } catch (error) {
-        console.error("Lỗi khi đặt hàng hoặc cập nhật số dư: ", error);
     }
 }
 
