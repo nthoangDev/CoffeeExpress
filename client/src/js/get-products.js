@@ -1,5 +1,6 @@
 import { db } from './firebase-config.js'; // Nhập db từ firebase-config.js
 import { collection, query, orderBy, limit, getDocs, doc, getDoc, addDoc, updateDoc, where } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+import { checkSession } from './check-session.js';
 
 // Hiển thị danh sách sản phẩm
 async function getProductList(container, limitCount) {
@@ -33,7 +34,7 @@ async function getProductList(container, limitCount) {
         btnOrder.forEach(btn => {
             btn.addEventListener('click', function () {
                 const productId = this.getAttribute('data-id');
-                // checkSession(); // Giả định hàm này đã được định nghĩa
+                checkSession(); 
                 showOrderForm(productId);
             });
         });
@@ -96,6 +97,55 @@ async function showOrderForm(productId) {
         }
     } catch (error) {
         console.error("Lỗi khi lấy thông tin sản phẩm: ", error);
+    }
+}
+
+let userSession = JSON.parse(localStorage.getItem('user_session'));
+
+// Xử lý đơn hàng
+async function handleOrder(productId, quantity, productPrice) {
+    if (!userSession) {
+        alert("Vui lòng đăng nhập để đặt hàng!");
+        return;
+    }
+
+    let authorEmail = userSession.user.email;
+    try {
+        const q = query(collection(db, 'users'), where('email', '==', authorEmail));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+            console.log("Không tìm thấy người dùng!");
+            return;
+        }
+
+        for (const userDoc of querySnapshot.docs) {
+            let author = userDoc.data();
+            const totalCost = productPrice * quantity;
+
+            if (author.balance < totalCost) {
+                alert("Số dư ví không đủ!");
+                return;
+            }
+
+            const productDoc = await getDoc(doc(db, 'products', productId));
+            const orderData = {
+                author: authorEmail,
+                product: productDoc.data(),
+                quantity: parseInt(quantity),
+                status: 0,
+                createdAt: new Date()
+            };
+
+            await addDoc(collection(db, 'orders'), orderData);
+            await updateDoc(userDoc.ref, {
+                balance: author.balance - totalCost
+            });
+
+            alert("Đặt hàng thành công!");
+            document.querySelector(".order-form").style.display = 'none';
+        }
+    } catch (error) {
+        console.error("Lỗi khi đặt hàng hoặc cập nhật số dư: ", error);
     }
 }
 
