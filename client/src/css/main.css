@@ -11,10 +11,16 @@
     max-width: 200px;
 }
 
+/* rounded */
+.rounded-sm {
+    border-radius: 4px;
+}
+
 .rounded-md {
     border-radius: 8px;
 }
 
+/* button  */
 .btn-primary {
     background-color: var(--color-primary);
     border: none;
@@ -28,6 +34,11 @@
 .btn-danger {
     background-color: var(--color-danger);
     color: var(--color-white);
+}
+
+.btn-cancle {
+    margin: 8px 0px;
+    border: 1px solid var(--color-grey);
 }
 
 .shadow-md {
