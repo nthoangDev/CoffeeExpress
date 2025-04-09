@@ -58,31 +58,26 @@
     position: fixed;
     top: 0;
     left: 0;
-  }
-  
-  .menu {
+}
+
+.menu {
     list-style: none;
-  }
-  
-  .menu li {
+}
+
+.menu li {
     padding: 10px 20px;
-  }
-  
-  .menu li a {
+}
+
+.menu li a {
     text-decoration: none;
     color: var(--color-black);
     font-weight: 500;
     display: block;
     padding: 8px 16px;
-  }
-  
-  .menu li a:hover {
+}
+
+.menu li a:hover {
     color: var(--color-primary);
     background-color: var(--color-grey);
     border-radius: 4px;
-  }
-  
-  .content {
-    margin-left: 16.67%; /* Offset cho col-md-2 */
-  }
-  
+}

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       profileDropdown.innerHTML = `
         <li class="bg-grey-light"><span class="dropdown-item">${userSession.user.email}</span></li>
         <li><a class="dropdown-item" href="./order_history.html">Lịch sử đơn hàng</a></li>
-        <li><a class="dropdown-item" href="./balance.html">Ví</a></li>
+        <li><a class="dropdown-item" href="./wallet.html">Ví</a></li>
         <li><button id="logout-btn" class="btn text-danger w-100 text-start">Đăng xuất</button></li>
       `;
 
