@@ -1,12 +1,12 @@
-
 .banner-group {
     background-image: url('../img/carousel.png');
-    width: 100%; 
-    height: 100vh; 
+    width: 100%;
+    height: 100vh;
     background-position: center bottom;
     background-size: 100% 100%;
-    background-attachment: fixed; 
+    background-attachment: fixed;
 }
+
 header {
     background-color: rgba(0, 0, 0, .75);
     position: fixed;
@@ -15,23 +15,29 @@ header {
     right: 0;
     z-index: 9;
 }
+
 header .nav-link {
     color: var(--color-white);
 }
+
 header .icon {
     font-size: 20px;
 }
+
 header .profile button {
     background: none;
     border: none;
     color: var(--color-white);
 }
+
 header .logo img {
     max-width: 200px;
 }
+
 .banner-text {
     padding-top: 200px;
 }
+
 .banner-text .title {
     font-size: 3rem;
 }
@@ -41,18 +47,24 @@ header .logo img {
     border-radius: 8px;
 }
 
-.dropdown-item{
+.dropdown-item {
     border-radius: 8px;
+}
+
+.nav-item a:hover {
+    color: var(--color-primary) !important;
 }
 
 .page-content {
     margin-top: 100px;
 }
-.product-list .product-item .content{
+
+.product-list .product-item .content {
     border-radius: 8px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-.product-list .product-item img{
+
+.product-list .product-item img {
     width: 100%;
     height: 240px;
     object-fit: cover;
@@ -104,17 +116,19 @@ header .logo img {
 footer {
     margin-top: 40px;
 }
+
 footer .content {
     padding: 140px 0px;
     color: var(--color-white);
 }
+
 footer .footer-form {
     border-radius: 4px;
     background-color: var(--color-white);
 }
-footer .footer-form input{
+
+footer .footer-form input {
     background: none;
     border: none;
     flex: 80%;
 }
-
