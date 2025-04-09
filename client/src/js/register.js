@@ -40,7 +40,7 @@ function handleRegister(event) {
         })
         .then(() => {
             alert("Đăng ký thành công");
-            window.location.href = "/login.html";
+            window.location.href = "login.html";
         })
         .catch((error) => {
             alert("Lỗi: " + error.message);

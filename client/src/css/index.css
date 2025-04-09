@@ -40,6 +40,11 @@ header .logo img {
     padding: 0px;
     border-radius: 8px;
 }
+
+.dropdown-item{
+    border-radius: 8px;
+}
+
 .page-content {
     margin-top: 100px;
 }
@@ -104,3 +109,4 @@ footer .footer-form input{
     border: none;
     flex: 80%;
 }
+
