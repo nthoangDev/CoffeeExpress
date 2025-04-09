@@ -3,7 +3,7 @@ import { collection, query, orderBy, limit, getDocs, doc, getDoc, addDoc, update
 import { checkSession } from './check-session.js';
 
 // Hiển thị danh sách sản phẩm
-async function getProductList(container, limitCount) {
+export async function getProductList(container, limitCount) {
     let htmls = '';
     try {
         const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), limit(limitCount));
@@ -149,8 +149,3 @@ async function handleOrder(productId, quantity, productPrice) {
     }
 }
 
-// Gọi hàm hiển thị sản phẩm khi trang tải
-document.addEventListener('DOMContentLoaded', () => {
-    const productContainer = document.querySelector('.product-list');
-    getProductList(productContainer, 4); // Giới hạn 4 sản phẩm
-});
