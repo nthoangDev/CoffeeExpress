@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 // });
 
 //Thêm sản phẩm tạm thời => không có trường image => vì chưa phát triển server
+
+
 document.getElementById('product-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   
