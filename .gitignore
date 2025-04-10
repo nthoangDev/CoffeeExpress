@@ -22,12 +22,12 @@ rad.json
 TestResults.xml
 
 # Bỏ qua toàn bộ thư mục node_modules
-/node_modules
+server/node_modules/
 
 # Bỏ qua file .env
 .env
 
 # Bỏ qua thư mục build chứa mã đã được biên dịch hoặc đóng gói
-/build
+build/
 
 
