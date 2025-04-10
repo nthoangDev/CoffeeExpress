@@ -20,3 +20,13 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+# Bỏ qua toàn bộ thư mục node_modules
+/node_modules
+
+# Bỏ qua file .env
+.env
+
+# Bỏ qua thư mục build chứa mã đã được biên dịch hoặc đóng gói
+/build
+

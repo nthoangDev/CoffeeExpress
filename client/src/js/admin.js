@@ -40,77 +40,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Thêm sản phẩm 
-// document.getElementById('product-form').addEventListener('submit', async (event) => {
-//   event.preventDefault();
-
-//   const productName = document.getElementById("product_name").value;
-//   const productPrice = document.getElementById("product_price").value;
-//   const productImage = document.getElementById("product_image").files[0];
-
-//   if (!productName || !productPrice || !productImage) {
-//     alert("Vui lòng điền đầy đủ thông tin!");
-//     return;
-//   }
-
-//   try {
-//     // Tạo một đối tượng FormData để gửi dữ liệu dạng multipart/form-data
-//     const formData = new FormData();
-//     // Thêm file ảnh (productImage) vào FormData với key là "image"
-//     formData.append("image", productImage);
-
-//     // Gửi yêu cầu HTTP POST đến endpoint "http://localhost:3000/upload"
-//     // Đây là một API giả định sẽ được phát triển sau để xử lý upload ảnh 
-//     const response = await fetch("http://localhost:3000/upload", { // Phát triển sau
-//       method: "POST",
-//       body: formData,
-//       // Lưu ý: Không cần set header "Content-Type" vì fetch tự động set multipart/form-data khi dùng FormData
-//     });
-
-//     // Phản hồi từ server (response) trả về thông tin file đã upload
-//     const result = await response.json();
-
-//     // Kiểm tra xem trong kết quả trả về có thuộc tính "data.secure_url" hay không
-//     // "data.secure_url" thường là URL của ảnh đã upload thành công (ví dụ từ Cloudinary)
-//     if (!result.data?.secure_url) {
-//       throw new Error("Upload ảnh thất bại!");
-//     }
-
-//     await addDoc(collection(db, "products"), {
-//       name: productName,
-//       price: parseFloat(productPrice),
-//       imageUrl: result.data.secure_url,
-//       createdAt: serverTimestamp(),
-//     });
-
-//     alert("Thêm sản phẩm thành công!");
-//     document.getElementById("product-form").reset();
-//     await loadProducts();
-//   } catch (error) {
-//     console.error("Lỗi khi thêm sản phẩm:", error);
-//     alert("Có lỗi xảy ra khi thêm sản phẩm!");
-//   }
-// });
-
-//Thêm sản phẩm tạm thời => không có trường image => vì chưa phát triển server
-
-
 document.getElementById('product-form').addEventListener('submit', async (event) => {
   event.preventDefault();
-  
+
   const productName = document.getElementById("product_name").value;
   const productPrice = document.getElementById("product_price").value;
-  // const productImage = document.getElementById("product_image").files[0]; // Bỏ qua ảnh
+  const productImage = document.getElementById("product_image").files[0];
 
-  if (!productName || !productPrice) { // Loại bỏ kiểm tra productImage
+  if (!productName || !productPrice || !productImage) {
     alert("Vui lòng điền đầy đủ thông tin!");
     return;
   }
 
   try {
+    const formData = new FormData();
+    formData.append("image", productImage);
+
+    const response = await fetch("http://localhost:3000/upload", { 
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    console.log(result)
+    
+    if (!result.data?.secure_url) {
+      throw new Error("Upload ảnh thất bại!");
+    }
+
     await addDoc(collection(db, "products"), {
       name: productName,
       price: parseFloat(productPrice),
-      imageUrl: "", // Để trống hoặc dùng URL mặc định
+      imageUrl: result.data.secure_url,
       createdAt: serverTimestamp(),
     });
 
@@ -122,6 +83,9 @@ document.getElementById('product-form').addEventListener('submit', async (event)
     alert("Có lỗi xảy ra khi thêm sản phẩm!");
   }
 });
+
+
+
 
 // Hiển thị sản phẩm 
 async function loadProducts() {
